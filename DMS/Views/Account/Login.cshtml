@@ -1,0 +1,66 @@
+﻿@model DCMS.Models.Setup.Login
+
+@{
+    ViewData["Title"] = "Login";
+
+}
+
+ <style type="text/css">
+    .login{
+        margin-left:80px;
+        margin-right:70px;
+    }
+        </style>
+<br/>
+<br/>
+<br />
+<br />
+<section class="vh-50" style="background-color: rgb(224,224,224)">
+    <div class="container py-2 h-50">
+        <div class="row d-flex justify-content-center align-items-center h-50">
+            <div class="col col-xl-7">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+
+                       
+                            <div class="card-body p-2 p-lg-3 text-black">
+
+                            <div className="card-header">
+                                <center><img  src="~/logo/logo.png" width="200" height="80" alt="Berhan Bank" /> </center>
+                            </div>
+
+                                <form asp-action="LoginAction" asp-controller="Account">
+                                    @**@
+                                @if (TempData["Error"] != null)
+                                {
+                                    <div class="alert alert-warning">
+                                        <strong>warning !</strong>@TempData["Error"]
+
+                                    </div>
+                                    TempData["Error"] = null;
+                                }
+                                    @**@
+                                    <div class="form-group login">
+                                        <label asp-for="UserName"></label>
+                                        <input asp-for="UserName" type="text" required class="form-control" />
+                                    </div>
+
+                                <div class="form-group login">
+                                        <label asp-for="Password"></label>
+                                    <input asp-for="Password" type="password" required class="form-control" />
+                                    </div>
+                                    <br/>
+
+                                <div class="form-group login">
+                                        <button class="btn btn-primary form-control" type="submit" asp-action="LoginAction" asp-controller="Account">Login</button>
+                                    </div>
+                                </form>
+
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,213 @@
+﻿@inject IHttpContextAccessor contextAccessor
+@{
+    var roleId = contextAccessor.HttpContext.Session.GetInt32("UserRole");
+    var userName = contextAccessor.HttpContext.Session.GetString("UserName");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] |DCMS</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AAMS.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/jquery.dataTables.min.css" asp-append-version="true" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
+    <link href="~/lib/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="~/css/chosen.css" asp-append-version="true" />*@
+    <link rel="stylesheet" href="~/css/chosen.min.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DCMS.styles.css" asp-append-version="true" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="~/wwwroot/js/jquery-3.7.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+    <style>
+        body {
+            background-color: rgb(224,224,224);
+        }
+    </style>
+
+
+</head>
+<body>
+    <header>
+        @if (userName != null)
+        {
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DishonoredCheques" asp-action="Index">Home</a>
+                            </li>
+                            @*<a class="btn btn-outline-success" asp-area="" asp-controller="DishonoredCheques" asp-action="Instancechecking">Register</a>
+                        *@
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dishonored Cheque</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="DishonoredCheques" asp-action="SearchDishonoredCheque">Search</a> 
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="DishonoredCheques" asp-action="Rejected">Rejected</a>
+                                    </li>
+                                 @*   @if (roleId != 2)
+                                    {*@
+                                        <li>
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="DishonoredCheques" asp-action="DishonoredCheques">Registeration</a>
+                                        </li>
+                                  @*  }*@
+                                    @if (roleId != 3)
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="DishonoredCheques" asp-action="Authorize">Authorize</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                            @if (roleId == 1)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">SetUp</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Setup" asp-action="TypeofInstance">Instance</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Setup" asp-action="Branch">Branch</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Setup" asp-action="District">District</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Report</a>
+                                <ul class="dropdown-menu">
+                                    @*  <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Setup" asp-action="TypeofInstance">#</a>
+                                </li> *@
+                                @if(roleId == 1){
+                                    <li>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Report" asp-action="DishonoredChequeRecords"> DishonoredChequeRecords</a>
+                                    </li>
+                                }
+                                    <li>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Report" asp-action="BusinessUnitRecords"> Business Unit</a>
+                                    </li>
+                                    @if (roleId == 1)
+                                    {
+                                        <li>
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Report" asp-action="AllRegisteredRecords"> All Registered</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                    <div style="margin-right:10px">
+                        <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profile <i class="fa-regular fa-circle-user"></i></a>
+                        <div class="dropdown-menu">
+                            <div>
+                                @if (roleId == 1)
+                                {
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Users"><i class="fa-solid fa-user "></i> Add</a>
+                                }
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="ChangePassword"> <i class="fa-sharp fa-solid fa-key"></i> Change</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout"><i class="fa-sharp fa-solid fa-right-from-bracket"></i> Out</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </nav>
+        }
+    </header>
+    <br />
+    <br />
+    <br />
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    @*  -----------------------------Dragable Modal-----------------*@
+    @*    <div class="modal fade" id="form-modal" role="dialog">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title"></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+    </div>
+    </div>
+    </div>
+    </div>*@
+    <div class="modal fade" id="form-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loaderbody" id="loaderbody">
+
+        <div class="loader"></div>
+    </div>
+    @* ----------------------------------------------------------------*@
+
+
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - DCMS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="d:\CTMS version\CTMS\wwwroot\js\chosen.jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.datatables.min.js" asp-append-version="true"></script>
+    @*<script src="~/js/chosen.jquery.js" asp-append-version="true"></script>*@
+    <script src="~/js/chosen.jquery.min.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+    <script src="~/js/assetreport/assetreport.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

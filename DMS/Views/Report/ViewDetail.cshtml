@@ -1,0 +1,204 @@
+﻿@model DCMS.Models.DishonoredCheque
+
+@{
+    ViewData["Title"] = "ViewDetail";
+    Layout = null;
+}
+
+<div class="container">
+    <form asp-action="ViewDetail">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Branch" class="control-label"></label>
+                    @Html.DropDownList("Branch", (SelectList)ViewBag.branchList, "--select--", new { @class = "form-control",@disabled = "disabled"})
+                    <span asp-validation-for="Branch" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="HomeBranch" class="control-label"></label>
+                    @Html.DropDownList("HomeBranch", (SelectList)ViewBag.branchList, "--select--", new { @class = "form-control",@disabled = "disabled" })
+                    <span asp-validation-for="HomeBranch" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="SubCity" class="control-label"></label>
+                    <input asp-for="SubCity" class="form-control" readonly />
+                    <span asp-validation-for="SubCity" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Telephone" class="control-label"></label>
+                    <input asp-for="Telephone" class="form-control" readonly />
+                    <span asp-validation-for="Telephone" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="InstanceDate" class="control-label"></label>
+                    <input asp-for="InstanceDate" class="form-control" readonly/>
+                    <span asp-validation-for="InstanceDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="TIN_Number" class="control-label"></label>
+                    <input asp-for="TIN_Number" class="form-control" readonly />
+                    <span asp-validation-for="TIN_Number" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="AccountNumber" class="control-label"></label>
+                    <input asp-for="AccountNumber" class="form-control" readonly />
+                    <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="FullName" class="control-label"></label>
+                    <input asp-for="FullName" class="form-control" readonly />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="IssueDate" class="control-label"></label>
+                    <input asp-for="IssueDate" class="form-control" readonly />
+                    <span asp-validation-for="IssueDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="ChequeNumber" class="control-label"></label>
+                    <input asp-for="ChequeNumber" class="form-control"  readonly />
+                    <span asp-validation-for="ChequeNumber" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="BeneficiaryName" class="control-label"></label>
+                    <input asp-for="BeneficiaryName" class="form-control" readonly />
+                    <span asp-validation-for="BeneficiaryName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <label asp-for="AmountOfMoney" class="control-label"></label>
+                    <input asp-for="AmountOfMoney" class="form-control" readonly />
+                    <span asp-validation-for="AmountOfMoney" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="CurrentBalance" class="control-label"></label>
+                    <input asp-for="CurrentBalance" class="form-control" readonly />
+                    <span asp-validation-for="CurrentBalance" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label"></label>
+                    <select asp-for="Status" class="form-control" ></select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="ExpiryDate" class="control-label"></label>
+                    <input asp-for="ExpiryDate" class="form-control" readonly/>
+                    <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="RegisteredBy" class="control-label"></label>
+                    <input asp-for="RegisteredBy" class="form-control" readonly/>
+                    <span asp-validation-for="RegisteredBy" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="RegisterationDate" class="control-label"></label>
+                    <input asp-for="RegisterationDate" class="form-control"readonly />
+                    <span asp-validation-for="RegisterationDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="AuthorizedBy" class="control-label"></label>
+                    <input asp-for="AuthorizedBy" class="form-control" readonly/>
+                    <span asp-validation-for="AuthorizedBy" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="AuthorizationDate" class="control-label"></label>
+                    <input asp-for="AuthorizationDate" class="form-control" readonly/>
+                    <span asp-validation-for="AuthorizationDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Remark" class="control-label"></label>
+                    <input asp-for="Remark" class="form-control" readonly/>
+                    <span asp-validation-for="Remark" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsBUNotified" readonly/> @Html.DisplayNameFor(model => model.IsBUNotified)
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsExpired" readonly/> @Html.DisplayNameFor(model => model.IsExpired)
+                    </label>
+
+                </div>
+            </div>
+        </div>
+@*         <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div> *@
+    </form>
+</div>
+@* <div>
+    <a asp-action="Index">Back to List</a>
+</div>
+ *@
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

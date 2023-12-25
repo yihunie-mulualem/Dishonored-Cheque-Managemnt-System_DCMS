@@ -1,0 +1,67 @@
+﻿@model DCMS.Models.Setup.User
+
+@inject IHttpContextAccessor contextAccessor
+@{
+    var roleId = contextAccessor.HttpContext.Session.GetInt32("UserRole");
+    var userName = contextAccessor.HttpContext.Session.GetString("UserName");
+}
+
+@{
+    ViewData["Title"] = "AddOrEditAsset";
+    Layout = null;
+
+}
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddOrEditUser" asp-controller="Account">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" required/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Branch" class="control-label">Branch Name</label>
+
+                @Html.DropDownList("BranchId", (SelectList)ViewBag.branchList, "--select--", new { @class = "form-control" })
+                <span asp-validation-for="BranchId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                <label asp-for="RoleId" class="control-label"></label>
+
+                @Html.DropDownList("RoleId", (SelectList)ViewBag.roleList, "--select--", new { @class = "form-control" })
+                <span asp-validation-for="RoleId" class="text-danger"></span>
+            </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="viewStatus" /> @Html.DisplayNameFor(model => model.viewStatus)
+                    </label>
+                </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

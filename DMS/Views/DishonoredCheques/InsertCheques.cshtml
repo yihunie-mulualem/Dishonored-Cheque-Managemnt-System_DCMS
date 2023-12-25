@@ -1,0 +1,233 @@
+﻿@model DCMS.Models.DishonoredCheque
+@{
+    ViewData["Title"] = "View1";
+}
+
+    <script>
+    $(document).ready(function () {
+        // Parse query parameters from the URL
+        var queryParams = new URLSearchParams(window.location.search);
+
+        // Get the value of the "someData" parameter from the URL
+        var Account = queryParams.get('ViewBag.Account');
+        var Text = queryParams.get('ViewBag.Text');
+        var Value = queryParams.get('ViewBag.value');
+        var valueins = Value;
+
+        $('#InstanceType').val(valueins);
+        // Update the input field with the value from the URL, or use the default ViewBag value
+        var inputValue = Text;
+        var accountD=Account;
+        $('#number').val(accountD);
+        $('#input').val(valueins);
+        //InstanceTypeId
+
+      
+    });
+    $(document).ready(function () {
+        // Parse query parameters from the URL
+        var queryParams = new URLSearchParams(window.location.search);
+
+        // Get the values of the "instanceId" and "instanceText" parameters from the URL
+        var instanceId = queryParams.get('ViewBag.Value');
+        var instanceText = queryParams.get('ViewBag.Text');
+
+        // Create a new option element with the dynamic values
+        var newOption = new Option(instanceText, instanceId);
+        // Clear existing options and add the new option
+
+       $('#InstanceTypeId').empty().append(newOption);
+        $('#instanceId').val(instanceId).prop('disabled', true);
+        //$('#InstanceTypeId').val(instanceId).prop('disabled', true);
+       // $('#InstanceTypeId').val(instanceId);
+       // $('#InstanceTypeId').text(instanceText);
+    });
+
+  
+
+
+</script>
+@using DCMS.Data;
+@using Microsoft.EntityFrameworkCore;
+@inject DCMSDbContext _context;
+@{
+    ViewBag.InstanceType = _context;
+}
+@{
+    ViewBag.Branch = _context;
+}
+@inject IHttpContextAccessor contextAccessor
+
+@{
+    var BranchId = contextAccessor.HttpContext.Session.GetInt32("UserBranch");
+    var BranchName = _context.Branches.Find(BranchId);
+    var Branch = BranchName.Name;
+    ViewBag.ID = BranchId;
+   //ViewBag.Branch = Branch;
+}
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+        <strong>success !</strong>@TempData["AlertMessage"]
+
+    </div>
+    TempData["AlertMessage"] =null;
+
+}
+@if (TempData["Warning"] != null)
+{
+    <div class="alert alert-warning">
+        <strong>Warning !</strong>@TempData["Warning"] 
+
+    </div>
+    TempData["AlertMessage"] = null;
+
+}
+
+
+<h3>Register Dishonored Cheques</h3>
+<div class="container">
+    <div class="row">
+    <div class="col-md-12">
+            <form asp-action="RegisterCheque">
+            <div class="row">
+            <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                            <label asp-for="Branch" class="control-label"></label>
+                            @{
+                                List<DCMS.Models.Setup.Branch> Branchs = _context.Branches.ToList();
+                            }
+                            <select asp-for="Branch" class="form-control" disabled class="form-control">
+                                @{
+                                    foreach (DCMS.Models.Setup.Branch s in Branchs)
+                                    {
+                                        @* <option asp-for="Branch" value="@s.Id">@s.Name</option>*@
+                                        <option asp-for="Branch" value=@BranchId>@Branch</option>
+                                    }
+                                }
+
+                            </select>
+            </div>
+            <div class="form-group">
+                            <label asp-for="AccountNumber" class="control-label"></label>
+                            <input id="number" asp-for="AccountNumber" class="form-control" onchange="Instancecheck()" required />
+                            <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                           
+            <div class="form-group">
+                            <label asp-for="SubCity" class="control-label"></label>
+                            <input asp-for="SubCity" class="form-control" required/>
+                            <span asp-validation-for="SubCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                            <label asp-for="Telephone" class="control-label"></label>
+                            <input asp-for="Telephone" class="form-control"  required />
+                            <span asp-validation-for="Telephone" class="text-danger"></span>
+            </div>
+
+          
+         
+              <div class="form-group">
+                                <label asp-for="RegisterationDate" class="control-label"></label>
+                                <input asp-for="RegisterationDate" class="form-control" readonly value="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                                <span asp-validation-for="RegisterationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                            <label asp-for="TIN_Number" class="control-label"></label>
+                            <input asp-for="TIN_Number" class="form-control" required />
+                            <span asp-validation-for="TIN_Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                                <label asp-for="HomeBranch" class="control-label"></label>
+                              
+                                    <input asp-for="HomeBranch" class="form-control"  required />
+                                <span asp-validation-for="HomeBranch" class="text-danger"></span>
+                            </div>
+                        </div>
+            </div>
+            <div class="col-md-4">
+
+            <div class="form-group">
+                            <label asp-for="FullName" class="control-label"></label>
+                            <input asp-for="FullName" id="name" class="form-control" required />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+                
+            
+                <div class="form-group">
+                            <label asp-for="IssueDate" class="control-label"></label>
+                            <input asp-for="IssueDate" class="form-control" required />
+                            <span asp-validation-for="IssueDate" class="text-danger"></span>
+                </div>
+            <div class="form-group">
+                            <label asp-for="ChequeNumber" class="control-label"></label>
+                            <input asp-for="ChequeNumber" class="form-control" required />
+                            <span asp-validation-for="ChequeNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                            <label asp-for="BeneficiaryName" class="control-label"></label>
+                            <input asp-for="BeneficiaryName" class="form-control" required />
+                            <span asp-validation-for="BeneficiaryName" class="text-danger"></span>
+            </div>
+                    
+            <div class="form-group">
+                            <label asp-for="AmountOfMoney" class="control-label"></label>
+                            <input asp-for="AmountOfMoney" class="form-control" required />
+                            <span asp-validation-for="AmountOfMoney" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                            <label asp-for="CurrentBalance" class="control-label"></label>
+                            <input asp-for="CurrentBalance" class="form-control" required />
+                            <span asp-validation-for="CurrentBalance" class="text-danger"></span>
+            </div>
+       
+            <div class="form-group">
+                            <label asp-for="InstanceTypeId" class="control-label"></label>
+    
+                            <select id="InstanceTypeId" asp-for="InstanceTypeId" class="form-control">
+                            </select>
+            </div>
+                        @*<div class="form-group">
+                            <label asp-for="InstanceTypeId" class="control-label"></label>
+                            <input asp-for="InstanceTypeId" class="form-control" required />
+                        </div>*@
+            </div>
+            <div class="col-md-4">
+           
+         
+            <div class="form-group">
+                            <label asp-for="Remark" class="control-label"></label>
+                            <textarea asp-for="Remark" class="form-control" rows="3" required></textarea>
+                          @*  <input asp-for="Remark" class="form-control" required rows="3" />*@
+                            <span asp-validation-for="Remark" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+            
+            </div>
+            <br/>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="submit" value="Register" class="btn btn-success form-control" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="Reset" value="Clear" class="btn btn-info form-control" />
+                                </div>
+                            </div>
+                        </div>
+        </div>
+        </div>
+        </form>
+        </div>
+
+     </div>
+   </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

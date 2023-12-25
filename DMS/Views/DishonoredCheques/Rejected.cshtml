@@ -1,0 +1,129 @@
+﻿@model IEnumerable<DCMS.Models.DishonoredChequeView>
+
+@{
+    ViewData["Title"] = "ChequeView";
+}
+
+<h3>Rejected Dishonored Cheques</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Branch)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.HomeBranch)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AccountNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FullName)
+                        </th>
+                        @**@
+                        <th>
+                            @Html.DisplayNameFor(model => model.SubCity)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Telephone)
+                        </th>
+                        @**@
+                        <th>
+                            @Html.DisplayNameFor(model => model.ChequeNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BeneficiaryName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AmountOfMoney)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CurrentBalance)
+                        </th>
+                        @**@
+                        <th>
+                            @Html.DisplayNameFor(model => model.InstanceType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IssueDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RegisteredBy)
+                        </th>
+                        @*ssued_Date	Instance_Type	Registration_Date	Registerd_By*@
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.RegisterationDate)
+                        </th>
+
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-action="UpdateDishonored" asp-route-id="@item.Id">Select</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Branch)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HomeBranch)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AccountNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SubCity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Telephone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ChequeNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BeneficiaryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AmountOfMoney)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CurrentBalance)
+                            </td>
+                            @*ssued_Date	Instance_Type	Registration_Date	Registerd_By*@
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.InstanceType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IssueDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RegisteredBy)
+                            </td>
+                            @*ssued_Date	Instance_Type	Registration_Date	Registerd_By*@
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RegisterationDate)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

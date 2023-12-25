@@ -1,0 +1,232 @@
+﻿@model IEnumerable<DCMS.Models.DishonoredCheque>;
+
+@{
+    <p class="text-danger">@ViewBag.ErrorMessage</p>
+}
+
+<div class="container">
+    <form asp-action="DishonoredChequeRecords" asp-controller="Report" method="post">
+
+        @* @Html.DropDownList("rptStatus", ()ViewBag.rptStatus, "--select--", new { @class = "form-control " }) bjdfgkdhgidkinput  *@
+        <input type="text" name="rptStatus" id="rptStatus" value="@ViewBag.rptStatus" readonly/>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label  class="control-label">Branch</label>               
+                    @Html.DropDownList("BranchId", (SelectList)ViewBag.Branchlist, "--select--", new { @class = "form-control "})
+                </div>
+            </div>
+            <!-- Instance type input field -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label  class="control-label">Instance Type</label>                   
+                    @Html.DropDownList("Instance_Type", (SelectList) ViewBag.Instancelist, "--select--", new { @class = "form-control "})
+                    <script>
+                        document.querySelector("#Instance_Type option:first-child").disabled = true;
+                    </script>
+                </div>
+            </div>
+            <!-- Date from input field -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Date From</label>
+                    <input value="@* @DateTime.Now.ToString("yyyy-MM-dd") *@" type="date" class="form-control" name="dateFrom" id="dateFrom" max="@DateTime.Now.ToString("yyyy-MM-dd")" data-val="true" data-val-date="The field Date To must be a date." data-val-range="The field Date To must be between @DateTime.Now.ToString("yyyy-MM-dd") and 9999-12-31." />
+                     
+                </div>
+            </div> 
+      
+            <!-- Date to input field -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Date To</label>
+                    <input value="@* @DateTime.Now.ToString("yyyy-MM-dd") *@" type="date" class="form-control" name="dateTo" id="dateTo" max="@DateTime.Now.ToString("yyyy-MM-dd")" data-val="true" data-val-date="The field Date To must be a date." data-val-range="The field Date To must be between @DateTime.Now.ToString("yyyy-MM-dd") and 9999-12-31." />
+                    <span name="dateTo" class="text-danger validationMessage"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-2">
+                <input type="submit" value="ExportAll" asp-action="ExportAllRecoredsExcell" asp class="btn btn-primary btn-sm" asp-controller="Report" />
+            </div>
+            <div class="col-md-6" style=" margin-top: 10px; ">
+                <div class="form-group">
+                    <input type="submit" value="Active Records" asp-action="ActiveRecords" asp class="btn btn-success btn-sm" asp-controller="Report" />
+                    <input type="submit" value="Expired Records" asp-action="ExpiredRecords" asp class="btn btn-secondary btn-sm" asp-controller="Report" />
+                    <input type="submit" value="Blocked Records" asp-action="BlockedRecords" asp class="btn btn-danger btn-sm" asp-controller="Report" />
+                    @**@
+
+                    @**@
+                    <button class="btn btn-secondary btn-sm " name="btnClear" value="1" type="submit" onclick="clearFields()">Clear</button>
+                    @**@
+                    <script>
+                        function clearFields() {
+                            // document.getElementById("Account_Number").value = "";
+                            document.getElementById("BranchId").value = "";
+                            document.getElementById("Instance_Type").value = "";
+                            document.getElementById("dateTo").value = "";
+                            document.getElementById("dateFrom").value = "";
+                        }
+                    </script>
+                </div>
+            </div>
+
+            <table class="table table-hover" id="myTable">
+                    <thead>
+                        <tr>
+                            @*             <th>
+                        @Html.DisplayNameFor(model => model.Branch)
+                        </th> *@
+                            @*             <th>
+                        @Html.DisplayNameFor(model => model.HomeBranch)
+                        </th> *@
+                            @*             <th>
+                        @Html.DisplayNameFor(model => model.SubCity)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.Telephone)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.InstanceDate)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.TIN_Number)
+                        </th> *@
+                            <th>
+                                @Html.DisplayNameFor(model => model.AccountNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FullName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IssueDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ChequeNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BeneficiaryName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AmountOfMoney)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CurrentBalance)
+                            </th>
+                            @*             <th>
+                        @Html.DisplayNameFor(model => model.IsExpired)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.ExpiryDate)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.RegisteredBy)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.RegisterationDate)
+                        </th> *@
+                            @*             <th>
+                        @Html.DisplayNameFor(model => model.AuthorizedBy)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.AuthorizationDate)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.Remark)
+                        </th> *@
+                            @*             <th>
+                        @Html.DisplayNameFor(model => model.IsBUNotified)
+                        </th> *@
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @Html.ValidationMessage("DishonoredCheques")
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                @*             <td>
+                        @Html.DisplayFor(modelItem => item.Branch)
+                        </td>*@
+
+                                @*             <td>
+                        @Html.DisplayFor(modelItem => item.HomeBranch)
+                        </td> *@
+                                @*
+                        <td>
+                        @Html.DisplayFor(modelItem => item.SubCity)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Telephone)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.InstanceDate)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.TIN_Number)
+                        </td> *@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AccountNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IssueDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChequeNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BeneficiaryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AmountOfMoney)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CurrentBalance)
+                                </td>
+                                @*             <td>
+                        @html.displayfor(modelitem => item.isexpired)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.ExpiryDate)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.RegisteredBy)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.RegisterationDate)
+                        </td> *@
+                                @*             <td>
+                        @Html.DisplayFor(modelItem => item.AuthorizedBy)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.AuthorizationDate)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Remark)
+                        </td>*@
+                                @*             <td>
+                        @Html.DisplayFor(modelItem => item.IsBUNotified)
+                        </td> *@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                @*    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        </td> *@
+                            </tr>
+                        }
+                    </tbody>
+            </table>
+ 
+        </div>
+       
+    </form>
+    
+</div>

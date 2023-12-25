@@ -1,0 +1,66 @@
+﻿@model IEnumerable<DCMS.Models.Setup.User>
+
+@inject IHttpContextAccessor contextAccessor
+@{
+    var roleId = contextAccessor.HttpContext.Session.GetInt32("UserRole");
+    var userName = contextAccessor.HttpContext.Session.GetString("UserName");
+}
+@{
+    ViewData["Title"] = "Index";
+    if (TempData["msg"] != null)
+    {
+        <script>swal("Berhan Bank", '@TempData["msg"]', "success")</script>
+    }
+    TempData["msg"] = null;
+}
+
+<div class="shadow p-3 mb-5 bg-white rounded">
+    <div class="">
+        <div class=" shadow-none p-3 mb-5 bg-light rounded ">
+            <p>
+                <a onclick="showInPopUp('@Url.Action("AddOrEditUser","Account",null,Context.Request.Scheme)','<h5>AddUser</h5>')" class="btn btn-outline-success"><i class="fa-solid fa-plus"></i> Add New</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FullName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.viewStatus)
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.viewStatus)
+                            </td>
+                            <td>
+                                <a onclick="showInPopUp('@Url.Action("AddOrEditUser","Account",new {id = item.Id},Context.Request.Scheme)','New Acquiered Asset')" class="btn btn-primary btn-sm "><i class="fa fa-pencil-alt"></i> </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DCMS.Models.Setup.InstanceType>
+
+@{
+    ViewData["Title"] = "TypeofInstance";
+
+}
+<div class="shadow p-3 mb-5 bg-white rounded">
+    <div class="">
+        <div class=" shadow-none p-3 mb-5 bg-light rounded ">
+            <p>
+                <a onclick="showInPopUp('@Url.Action("AddOrEditInstanceType","Setup",null,Context.Request.Scheme)','<h5>Add New Instance Type</h5>')" class="btn btn-outline-success"><i class="fa-solid fa-plus"></i> Add New</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                <a onclick="showInPopUp('@Url.Action("AddOrEditInstanceType","Setup",new {id = item.Id},Context.Request.Scheme)','Edit Instance Type')" class="btn btn-primary btn-sm "><i class="fa fa-pencil-alt"></i> </a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

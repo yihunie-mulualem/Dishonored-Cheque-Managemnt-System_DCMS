@@ -1,0 +1,211 @@
+﻿@model IEnumerable<DCMS.Models.DishonoredCheque>;
+
+@{
+    <p>@ViewBag.ErrorMessage</p>
+}
+<div class="container">
+    <h5 class=" text-black">Dishonored Cheque Search</h5>
+    <form method="post" asp-controller="DishonoredCheques" asp-action="SearchDishonoredCheque">
+        <div class="row">
+            <!-- Account Number input field -->
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Account Number</label>
+                    <input type="text" id="Account_Number" name="Account_Number" class="form-control" />
+                </div>
+            </div>
+
+            <!-- Branch input field -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label"> Registered Branch</label>
+                    @Html.DropDownList("BranchId", (SelectList)ViewBag.Branchlist,"--Select--", new { @class = "form-control "})
+                    <script>
+                        document.querySelector("#BranchId option:first-child").disabled = true;
+                    </script>
+                </div>
+            </div>
+            <!-- Instance type input field -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Instance Type</label>
+                    @Html.DropDownList("Instance_Type", (SelectList) ViewBag.Instancelist, "--Select--", new { @class = "form-control "})
+                    <script>
+                        document.querySelector("#Instance_Type option:first-child").disabled = true;
+                    </script>
+                </div>
+            </div>
+            <br />
+            <div class="col-md-6 " style=" display:flex ;margin-top: 25px; ">
+                <div class="form-group">
+                    <button class="btn btn-success " name="btnSearch" value="1" type="submit">Search</button>
+                    <button class="btn btn-danger " name="btnClear" value="1" type="submit" onclick="clearFields()">Clear</button>
+                    <script>
+                        function clearFields() {
+                            document.getElementById("Account_Number").value = "";
+                            document.getElementById("BranchId").value = "";
+                            document.getElementById("Instance_Type").value = "";
+                        }
+                    </script>
+                </div>
+            </div>
+
+            <table class="table table-hover  dataTables_scrollBody dataTables_scrollHead" id="myTable">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Branch)
+                            @* @ViewBag.Branch.Name *@
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.HomeBranch)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SubCity)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Telephone)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.InstanceDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TIN_Number)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AccountNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FullName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IssueDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ChequeNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BeneficiaryName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AmountOfMoney)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CurrentBalance)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsExpired)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExpiryDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RegisteredBy)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RegisterationDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AuthorizedBy)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AuthorizationDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Remark)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsBUNotified)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @Html.ValidationMessage("DishonoredCheques")
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td> @Html.DisplayFor(modelItem => item.Branch) </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HomeBranch)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SubCity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Telephone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.InstanceDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TIN_Number)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AccountNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IssueDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ChequeNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BeneficiaryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AmountOfMoney)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CurrentBalance)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelitem => item.IsExpired)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExpiryDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RegisteredBy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RegisterationDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AuthorizedBy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AuthorizationDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Remark)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsBUNotified)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            @* <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        </td> *@
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+        </div>
+    </form>
+
+</div>
